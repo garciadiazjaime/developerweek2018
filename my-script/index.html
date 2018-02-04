@@ -11,172 +11,20 @@
     <title>WEBSOCKET Text iink</title>
 
     <link rel="stylesheet" href="bower_components/myscript/dist/myscript.min.css" />
-    <style>
-        * {
-            box-sizing: border-box;
-        }
 
-        body {
-            margin: 0;
-        }
-
-        nav {
-            display: flex;
-            display: -webkit-flex;
-            align-items: center;
-            align-content: center;
-            justify-content: space-around;
-            z-index: 25;
-            border-top: 1px solid #D7DDE3;
-            /*#A9B7C5*/
-            height: 52px;
-            padding: 0 12px;
-        }
-
-        select {
-            width: auto;
-            padding: .375rem 1.75rem .4375rem .75rem;
-            color: #131F26;
-            background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTQiIHZpZXdCb3g9IjAgMCAxOCAxNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik00LjQyMi4yNmMtLjIzMy0uMzM3LS42MS0uMzM3LS44NDQgMEwuMTc1IDUuMTdDLS4xNDIgNS42MjguMDQ4IDYgLjYxIDZoNi43OGMuNTU4IDAgLjc1NC0uMzcuNDM1LS44M0w0LjQyMi4yNnptLjAyIDEzLjQ3Yy0uMjM2LjM0Mi0uNjE4LjM0Ny0uODUuMDFMLjE2NyA4LjgxOEMtLjE0NiA4LjM2Ny4wNDggOCAuNjA4IDhoNi43ODNjLjU1OCAwIC43NTUuMzcuNDM3LjgzbC0zLjM4NSA0Ljl6IiBmaWxsPSIjMTMxRjI2Ii8+PC9nPjwvc3ZnPg==) right center no-repeat #fff;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            min-height: 2.625rem;
-            font: 400 1.125rem "Source Sans Pro", sans-serif;
-            border: 1px solid #CED5D9;
-            border-radius: 3px;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        button {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        #parameters {
-            height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .action-button {
-            cursor: pointer;
-            box-sizing: border-box;
-            color: #FFFFFF;
-            background: #1A9FFF;
-            border-radius: 50%;
-            border: none;
-            padding: 8px;
-            margin: 6px;
-            height: 40px;
-            width: 40px;
-            outline: none;
-        }
-
-        .action-button:hover {
-            background: #0798FF;
-        }
-
-        .action-button:focus {
-            background: #0177CB;
-        }
-
-        .action-button:disabled {
-            background: #F5F6F7;
-        }
-
-        .action-button:before {
-            content: '';
-            display: inline-block;
-            vertical-align: middle;
-            height: 18px;
-            width: 18px;
-        }
-
-        .action-label-button {
-            cursor: pointer;
-            box-sizing: border-box;
-            color: #1A9FFF;
-            background: transparent;
-            border: none;
-            padding: 8px;
-            margin: 6px;
-            height: 40px;
-            outline: none;
-        }
-
-        .action-label-button:hover {
-            color: #0798FF;
-        }
-
-        .action-label-button:focus {
-            color: #0177CB;
-        }
-
-        .action-label-button:disabled {
-            color: #F5F6F7;
-        }
-
-        .spacer {
-            flex-grow: 2;
-        }
-
-        #clear:before {
-            background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyB3aWR0aD0iMThweCIgaGVpZ2h0PSIxOHB4IiB2aWV3Qm94PSIwIDAgMTggMTgiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+ICAgICAgICA8dGl0bGU+dHJhc2g8L3RpdGxlPiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4gICAgPGRlZnM+PC9kZWZzPiAgICA8ZyBpZD0iU3ltYm9scyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+ICAgICAgICA8ZyBpZD0idHJhc2giPiAgICAgICAgICAgIDxnIGlkPSJTb3VyY2UiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMuMDAwMDAwLCAyLjAwMDAwMCkiIHN0cm9rZT0iI0ZGRkZGRiIgc3Ryb2tlLXdpZHRoPSIyIj4gICAgICAgICAgICAgICAgPHBhdGggZD0iTTAsMyBMMTIsMyIgaWQ9IlBhdGgtNTIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PC9wYXRoPiAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMiw0IEwyLjQ4NzY0MDM4LDEzLjc1MjgwNzYgQzIuNDk0NDY2NDEsMTMuODg5MzI4MiAyLjYyMTQ5ODExLDE0IDIuNzQ5MTMzNzEsMTQgTDkuMjUwODY2MjksMTQgQzkuMzg4NDU5MDQsMTQgOS41MDU2MTUyMywxMy44ODc2OTUzIDkuNTEyMzU5NjIsMTMuNzUyODA3NiBMMTAsNCIgaWQ9IlBhdGgtNTMiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PC9wYXRoPiAgICAgICAgICAgICAgICA8cGF0aCBkPSJNNiwzIEw2LDE0IiBpZD0iTGluZSIgc3Ryb2tlLWxpbmVjYXA9InNxdWFyZSI+PC9wYXRoPiAgICAgICAgICAgICAgICA8cG9seWxpbmUgaWQ9IlBhdGgtNTQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgcG9pbnRzPSIzLjUgMi41IDQuNSA0LjQ0MDg5MjFlLTE0IDcuNSA0LjQ0MDg5MjFlLTE0IDguNSAyLjUiPjwvcG9seWxpbmU+ICAgICAgICAgICAgPC9nPiAgICAgICAgICAgIDxwYXRoIGQ9Ik01LjYyMjk2NzA0LDQgTDMsNCBDMi40NDc3MTUyNSw0IDIsNC40NDc3MTUyNSAyLDUgQzIsNS41NTIyODQ3NSAyLjQ0NzcxNTI1LDYgMyw2IEwzLjk5OTk3NzU1LDYgQzMuOTk5OTkxMDgsNi4wMTY1NjM3MiA0LjAwMDQxMTQzLDYuMDMzMjEyOTQgNC4wMDEyNDc2Niw2LjA0OTkzNzYyIEw0LjQ4ODg4ODA0LDE1LjgwMjc0NTIgQzQuNTIyNTE4MDUsMTYuNDc1MzQ1NCA1LjA5MjEyMzYyLDE3IDUuNzQ5MTMzNzEsMTcgTDEyLjI1MDg2NjMsMTcgQzEyLjkyMDM0NDksMTcgMTMuNDc3NzA3OCwxNi40NzA4MjkxIDEzLjUxMTExMiwxNS44MDI3NDUyIEwxMy45OTg3NTIzLDYuMDQ5OTM3NjIgQzEzLjk5OTU4ODYsNi4wMzMyMTI5NCAxNC4wMDAwMDg5LDYuMDE2NTYzNzIgMTQuMDAwMDIyNSw2IEwxNSw2IEMxNS41NTIyODQ3LDYgMTYsNS41NTIyODQ3NSAxNiw1IEMxNiw0LjQ0NzcxNTI1IDE1LjU1MjI4NDcsNCAxNSw0IEwxMi4zNzcwMzMsNCBMMTEuNDI4NDc2NywxLjYyODYwOTMyIEMxMS4yNzY2MTMzLDEuMjQ4OTUwOTQgMTAuOTA4OTA0NiwxIDEwLjUsMSBMNy41LDEgQzcuMDkxMDk1NDEsMSA2LjcyMzM4NjY2LDEuMjQ4OTUwOTQgNi41NzE1MjMzMSwxLjYyODYwOTMyIEw1LjYyMjk2NzA0LDQgWiBNNy43NzcwMzI5Niw0IEwxMC4yMjIyOTM4LDQgTDkuODIyMjM2NTcsMy4wMDE3ODUxMSBMOC4xNzQ1ODMwNywzLjAwNjEyNDczIEw3Ljc3NzAzMjk2LDQgWiBNOCw2IEw2LjAwMTI0OTIyLDYgTDYuNDUxNTY3MjksMTUuMDA2MzYxNSBMOCwxNS4wMDQ2NjI5IEw4LDYgWiBNMTAsNiBMMTEuOTk4ODI2OCw2IEwxMS41NjI0ODgsMTUuMDAwNzU1MSBMMTAsMTUuMDAyNDY5MSBMMTAsNiBaIiBpZD0iQ29tYmluZWQtU2hhcGUiIGZpbGw9IiNGRkZGRkYiPjwvcGF0aD4gICAgICAgIDwvZz4gICAgPC9nPjwvc3ZnPg==) center center no-repeat;
-        }
-
-        #undo:before {
-            background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyB3aWR0aD0iMThweCIgaGVpZ2h0PSIxOHB4IiB2aWV3Qm94PSIwIDAgMTggMTgiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+ICAgICAgICA8dGl0bGU+dW5kbzwvdGl0bGU+ICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPiAgICA8ZGVmcz48L2RlZnM+ICAgIDxnIGlkPSJTeW1ib2xzIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4gICAgICAgIDxnIGlkPSJ1bmRvIiBmaWxsPSIjRkZGRkZGIj4gICAgICAgICAgICA8cGF0aCBkPSJNNC4zOTY5NzM4Myw5IEw2LjcwNDQ1MjA0LDExLjI5MDI0ODMgQzcuMDk2NDM3MDYsMTEuNjc5MzA2NCA3LjA5ODgwOTgxLDEyLjMxMjQ2NjkgNi43MDk3NTE3MywxMi43MDQ0NTIgQzYuMzIwNjkzNjYsMTMuMDk2NDM3IDUuNjg3NTMzMTIsMTMuMDk4ODA5NyA1LjI5NTU0ODEsMTIuNzA5NzUxNyBMMS40Njc0MjMwMyw4LjkxMDIxMTEgQzAuOTg3NzYyMDk4LDguNDM0MTMxNzggMC45NzczODMzNTcsNy42NDA2MTY5NyAxLjQ2MjE0Mjk4LDcuMTUyMjM3NjcgTDUuMjkwMjY4MDEsMy4yOTU1MjgyNCBDNS42NzkzMzcwMywyLjkwMzU1NDA3IDYuMzEyNDk3NjIsMi45MDExOTg5NyA2LjcwNDQ3MTc5LDMuMjkwMjY3OTggQzcuMDk2NDQ1OTYsMy42NzkzMzcgNy4wOTg4MDEwNiw0LjMxMjQ5NzU5IDYuNzA5NzMyMDUsNC43MDQ0NzE3NiBMNC40MzEyMTczNiw3IEwxMy4wMDEyMTQ0LDcgQzE1LjIwODc4NDIsNyAxNyw4Ljc5MzMzMjE1IDE3LDExIEMxNywxMy4yMDkwODQ2IDE1LjIxMjQzMjUsMTUgMTMuMDA0ODgxNSwxNSBMMTEsMTUgQzEwLjQ0NzcxNTMsMTUgMTAsMTQuNTUyMjg0NyAxMCwxNCBDMTAsMTMuNDQ3NzE1MyAxMC40NDc3MTUzLDEzIDExLDEzIEwxMy4wMDQ4ODE1LDEzIEMxNC4xMDcwMjQ0LDEzIDE1LDEyLjEwNTM1MTkgMTUsMTEgQzE1LDkuODk3MzczMzMgMTQuMTAzNjg1Nyw5IDEzLjAwMTIxNDQsOSBMNC4zOTY5NzM4Myw5IFoiIGlkPSJDb21iaW5lZC1TaGFwZSI+PC9wYXRoPiAgICAgICAgPC9nPiAgICA8L2c+PC9zdmc+) center center no-repeat;
-        }
-
-        #redo:before {
-            background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyB3aWR0aD0iMThweCIgaGVpZ2h0PSIxOHB4IiB2aWV3Qm94PSIwIDAgMTggMTgiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+ICAgICAgICA8dGl0bGU+cmVkbzwvdGl0bGU+ICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPiAgICA8ZGVmcz48L2RlZnM+ICAgIDxnIGlkPSJTeW1ib2xzIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4gICAgICAgIDxnIGlkPSJyZWRvIiBmaWxsPSIjRkZGRkZGIj4gICAgICAgICAgICA8cGF0aCBkPSJNMTMuNTk0Mzc2Nyw5IEwxMS4yOTQyMTcyLDExLjI5MTU3MiBDMTAuOTAyOTYzMywxMS42ODEzNjUzIDEwLjkwMTc3OTEsMTIuMzE0NTI5MSAxMS4yOTE1NzI0LDEyLjcwNTc4MzEgQzExLjY4MTM2NTYsMTMuMDk3MDM3MSAxMi4zMTQ1Mjk1LDEzLjA5ODIyMTIgMTIuNzA1NzgzNCwxMi43MDg0MjggTDE2LjUzMzkwODEsOC44OTQ1OTUzNCBDMTcuMDEyMjU5NCw4LjQxODAyOTk2IDE3LjAyMjYzNzQsNy42MjQ1MzM0OCAxNi41MzY1NDgxLDcuMTM2NjI5MzcgTDEyLjcwODQyMzMsMy4yOTQyMTIgQzEyLjMxODYyNzQsMi45MDI5NjA3MiAxMS42ODU0NjM1LDIuOTAxNzgwOTQgMTEuMjk0MjEyMiwzLjI5MTU3Njg5IEMxMC45MDI5NjEsMy42ODEzNzI4NCAxMC45MDE3ODEyLDQuMzE0NTM2NzIgMTEuMjkxNTc3MSw0LjcwNTc4OCBMMTMuNTc3MjU1NCw3IEw0Ljk5ODc4NTY0LDcgQzIuNzkxMjE1ODEsNyAxLDguNzkzMzMyMTUgMSwxMSBDMSwxMy4yMDkwODQ2IDIuNzg3NTY3NTIsMTUgNC45OTUxMTg1LDE1IEw3LDE1IEM3LjU1MjI4NDc1LDE1IDgsMTQuNTUyMjg0NyA4LDE0IEM4LDEzLjQ0NzcxNTMgNy41NTIyODQ3NSwxMyA3LDEzIEw0Ljk5NTExODUsMTMgQzMuODkyOTc1NjIsMTMgMywxMi4xMDUzNTE5IDMsMTEgQzMsOS44OTczNzMzMyAzLjg5NjMxNDMyLDkgNC45OTg3ODU2NCw5IEwxMy41OTQzNzY3LDkgWiIgaWQ9IkNvbWJpbmVkLVNoYXBlIj48L3BhdGg+ICAgICAgICA8L2c+ICAgIDwvZz48L3N2Zz4=) center center no-repeat;
-        }
-
-        #export:before {
-            background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDE4IDE4IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCA0MCAoMzM3NjIpIC0gaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoIC0tPgogICAgPHRpdGxlPnVwbG9hZDwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxkZWZzPjwvZGVmcz4KICAgIDxnIGlkPSJTeW1ib2xzIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8ZyBpZD0idXBsb2FkIiBmaWxsPSIjRkZGRkZGIj4KICAgICAgICAgICAgPHBhdGggZD0iTTgsNS40MTQyMTM1NiBMOCwxMiBDOCwxMi41NTIyODQ3IDguNDQ3NzE1MjUsMTMgOSwxMyBDOS41NTIyODQ3NSwxMyAxMCwxMi41NTIyODQ3IDEwLDEyIEwxMCw1LjQxNDIxMzU2IEwxMi4yOTI4OTMyLDcuNzA3MTA2NzggQzEyLjY4MzQxNzUsOC4wOTc2MzEwNyAxMy4zMTY1ODI1LDguMDk3NjMxMDcgMTMuNzA3MTA2OCw3LjcwNzEwNjc4IEMxNC4wOTc2MzExLDcuMzE2NTgyNDkgMTQuMDk3NjMxMSw2LjY4MzQxNzUxIDEzLjcwNzEwNjgsNi4yOTI4OTMyMiBMOS44Nzg5ODE3OCwyLjQ2NDc2ODIyIEM5LjQwMTkzMDIzLDEuOTg3NzE2NjcgOC42MDg0NDcwOCwxLjk3NzMzOTM2IDguMTIxMDE4MjIsMi40NjQ3NjgyMiBMNC4yOTI4OTMyMiw2LjI5Mjg5MzIyIEMzLjkwMjM2ODkzLDYuNjgzNDE3NTEgMy45MDIzNjg5Myw3LjMxNjU4MjQ5IDQuMjkyODkzMjIsNy43MDcxMDY3OCBDNC42ODM0MTc1MSw4LjA5NzYzMTA3IDUuMzE2NTgyNDksOC4wOTc2MzEwNyA1LjcwNzEwNjc4LDcuNzA3MTA2NzggTDgsNS40MTQyMTM1NiBaIE0xNCwxNiBDMTQuNTUyMjg0NywxNiAxNSwxNS41NTIyODQ3IDE1LDE1IEMxNSwxNC40NDc3MTUzIDE0LjU1MjI4NDcsMTQgMTQsMTQgTDQsMTQgQzMuNDQ3NzE1MjUsMTQgMywxNC40NDc3MTUzIDMsMTUgQzMsMTUuNTUyMjg0NyAzLjQ0NzcxNTI1LDE2IDQsMTYgTDE0LDE2IFoiIGlkPSJDb21iaW5lZC1TaGFwZSI+PC9wYXRoPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+Cg==) center center no-repeat;
-        }
-
-        #result {
-            height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: auto;
-        }
-
-        #result span {
-            font-size: xx-large;
-        }
-
-        #editor {
-            width: 200px;
-            height: 400px;
-            border: 1px solid black;
-        }
-    </style>
 
     <script type="text/javascript" src="bower_components/pepjs/dist/pep.min.js"></script>
     <script type="text/javascript" src="bower_components/myscript/dist/myscript.min.js"></script>
-<<<<<<< HEAD
-
 
     <!-- tomtom scripts -->
     <link rel='stylesheet' type='text/css' href='http://api.tomtom.com/maps-sdk-js/4.15.0/examples/sdk/map.css' />
     <link rel='stylesheet' type='text/css' href='http://api.tomtom.com/maps-sdk-js/4.15.0/examples/elements.css'>
     <link rel="stylesheet" href="./css/map.css">
+    <link rel="stylesheet" href="./css/myScript.css">
     <script src='http://api.tomtom.com/maps-sdk-js/4.15.0/examples/sdk/tomtom.min.js'></script>
 </head>
 
 <body touch-action="none" class='use-all-space'>
-=======
-</head>
-
-<body touch-action="none">
->>>>>>> f35e7def4884c6b26737780236822a26f87c2fee
     <div id="result"></div>
     <div>
         <nav>
@@ -187,75 +35,11 @@
         </nav>
         <div id="editor"></div>
     </div>
-    <script>
-        var editorElement = document.getElementById('editor');
-        var resultElement = document.getElementById('result');
-        var undoElement = document.getElementById('undo');
-        var redoElement = document.getElementById('redo');
-        var clearElement = document.getElementById('clear');
-        editorElement.addEventListener('changed', function(evt) {
-            clearElement.disabled = !evt.detail.canClear;
-            undoElement.disabled = !evt.detail.canUndo;
-            redoElement.disabled = !evt.detail.canRedo;
-        });
-        editorElement.addEventListener('exported', function(evt) {
-            var exports = evt.detail.exports;
-            if (exports && exports['text/plain']) {
-                console.log(exports['text/plain']);
-                if(exports['text/plain'] == "M") {
-                  resultElement.innerHTML = "<img src='https://lh3.googleusercontent.com/gN6iBKP1b2GTXZZoCxhyXiYIAh8QJ_8xzlhEK6csyDadA4GdkEdIEy9Bc8s5jozt1g=w300' width='50' height='50'>";
-                }
-                else {
-                  resultElement.innerHTML = '<span>' + exports['text/plain'] + '</span>';
-                }
 
-            } else {
-                resultElement.innerHTML = '';
-            }
-        });
-        undoElement.addEventListener('click', function() {
-            editorElement.editor.undo();
-        });
-        redoElement.addEventListener('click', function() {
-            editorElement.editor.redo();
-        });
-        clearElement.addEventListener('click', function() {
-            editorElement.editor.clear();
-        });
-        /**
-         * Attach an editor to the document
-         * @param {Element} The DOM element to attach the ink paper
-         * @param {Object} The recognition parameters
-         */
-        MyScript.register(editorElement, {
-            recognitionParams: {
-                type: 'TEXT',
-                protocol: 'WEBSOCKET',
-                apiVersion: 'V4',
-                server: {
-                    scheme: 'https',
-                    host: 'webdemoapi.myscript.com',
-                    applicationKey: '8e362718-90d6-4ce4-b5fe-2ed1234759cc',
-                    hmacKey: '079e58d8-0758-4a3d-bdae-65a0273de50b'
-                },
-                v4: {
-                    text: {
-                        mimeTypes: ['text/plain']
-                    },
-                }
-            }
-        });
-        window.addEventListener('resize', function() {
-            editorElement.editor.resize();
-        });
-    </script>
-<<<<<<< HEAD
-
-    <!-- tomtom components -->
     <div id='map' class='use-all-space'></div>
+
+    <script src="./js/myScript.js"></script>
     <script src="./js/map.js"></script>
-=======
->>>>>>> f35e7def4884c6b26737780236822a26f87c2fee
 </body>
 
 </html>
