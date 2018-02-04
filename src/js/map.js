@@ -1,5 +1,5 @@
 const center = [37.7599904,-122.4536476]
-const zoom = 12
+const zoom = 13
 
 const map = tomtom.map('map', {
   center,
@@ -64,14 +64,16 @@ function UserPins() {
     if (pointsParam) {
       const points = JSON.parse(pointsParam)
       if (points && points.length) {
-        points.forEach((point, i) => {
+        let centerDefined = false
+        points.forEach(point => {
           if (point.iconUrl) {
             this.add(point.latlng, point.uuid)
             this.setIcon(point.iconUrl)
-          }
-          if (i === 0) {
-            const customCenter = [point.latlng.lat, point.latlng.lng]
-            map.setView(customCenter, zoom);
+            if (!centerDefined) {
+              const customCenter = [point.latlng.lat, point.latlng.lng]
+              map.setView(customCenter, zoom);
+              centerDefined = true
+            }
           }
         })
       }
