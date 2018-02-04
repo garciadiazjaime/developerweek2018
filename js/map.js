@@ -2,27 +2,11 @@ const center = [37.7599904,-122.4536476]
 
 const map = tomtom.map('map', {
   center,
-  zoom: 14,
+  zoom: 12,
   key: 'V6iEh5xVqo3mBAHEe3reZYZG10yAhbBt',
   source: 'vector',
   basePath: '/tomtomSDK',
 })
-
-
-
-// const bounds = [
-//   [37.798228, -122.518443],
-//   [37.704575, -122.343863]
-// ]
-
-// const markers = [
-//   [37.7568453, -122.4578464],
-//   [37.7599043, -122.4256016],
-//   [37.7610579, -122.4094225]
-// ]
-
-// markers.forEach(marker => tomtom.L.marker(marker).addTo(map))
-// map.fitBounds(bounds)
 
 tomtom.controlPanel({
     position: 'bottomright',
@@ -48,8 +32,39 @@ const markerOptions = {
 
 tomtom.L.marker([43.26456, -71.5702], markerOptions).addTo(map);
 
+window.pins = new UserPins();
 
 map.on('click', e => {
-  tomtom.L.popup().setLatLng(e.latlng).setContent(e.latlng.toString()).openOn(map)
-  tomtom.L.marker(e.latlng, markerOptions).addTo(map);
+  pins.add(e.latlng)
 })
+
+function UserPins() {
+  this.points = []
+  this.current = null
+
+  this.add = function(latlng) {
+    const newPin = {
+      latlng,
+      uuid: guid()
+    }
+    this.points.push(newPin)
+    this.current = newPin.uuid
+  }
+
+  this.setIcon = function(category) {
+    const point = this.points.filter(point => point.uuid == this.current)
+    if (point.length) {
+      tomtom.L.marker(point[0].latlng, markerOptions).addTo(map);
+    }
+  }
+}
+
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
