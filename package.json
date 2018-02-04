@@ -5,6 +5,7 @@
   "repository": {},
   "license": "MIT",
   "scripts": {
-    "start": "http-server ."
+    "start": "http-server ./src",
+    "deploy": "cd ./src && gsutil -m cp -r . gs://mapgic.mintitmedia.com"
   }
 }
