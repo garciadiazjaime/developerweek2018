@@ -4,6 +4,7 @@
 
 body {
     margin: 0;
+    font-family: sans-serif;
 }
 
 nav {
@@ -165,7 +166,7 @@ button {
 
 #pin-selector {
   border-radius: 20px;
-  background: #d14536;
+  background: #862091;
   padding: 20px 10px;
   width: 250px;
   position: absolute;
@@ -173,9 +174,45 @@ button {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
-  box-shadow: 0px 5px 20px rgba(0, 0, 0, .9);
 }
 
 #pin-selector.hidden {
   left: -10000px;
+}
+
+.header {
+  background: white;
+  width: 100%;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #5c5c5c;
+  font-size: 20px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, .4);
+}
+
+.header .logo{
+  width: 40px;
+}
+
+#btn-facebook {
+  float: right;
+  background: #862091;
+  color: white;
+  font-weight: bold;
+  padding: 12px 18px;
+  border-radius: 4px;
+  border: none;
+  font-size: 14px;
+}
+
+.footer {
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  background: #862091;
+  padding: 10px 0;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 10000;
 }
