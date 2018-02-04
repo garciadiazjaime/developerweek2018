@@ -16,26 +16,24 @@ tomtom.controlPanel({
   })
   .addTo(map)
 
-const markerOptions = {
-  icon: tomtom.L.svgIcon({
-    icon: {
-      icon: 'fa fa-camera',
-      iconSize: [32, 37],
-      iconAnchor: [16, 2],
-      style: {
-        color: '#fff'
-      },
-      noPlainSVG: true
-    }
-  })
+function markerOptions(iconUrl) {
+  console.log(iconUrl);
+  return {
+    icon: tomtom.L.icon({
+      iconUrl,
+      iconSize: [60, 60],
+      iconAnchor: [15, 34]
+    })
+  }
 };
 
-tomtom.L.marker([43.26456, -71.5702], markerOptions).addTo(map);
+// tomtom.L.marker([43.26456, -71.5702], markerOptions).addTo(map);
 
 window.pins = new UserPins();
 
 map.on('click', e => {
   pins.add(e.latlng)
+  showPinSelector();
 })
 
 function UserPins() {
@@ -51,10 +49,11 @@ function UserPins() {
     this.current = newPin.uuid
   }
 
-  this.setIcon = function(category) {
+  this.setIcon = function(iconUrl) {
+    console.log(iconUrl);
     const point = this.points.filter(point => point.uuid == this.current)
     if (point.length) {
-      tomtom.L.marker(point[0].latlng, markerOptions).addTo(map);
+      tomtom.L.marker(point[0].latlng, markerOptions(iconUrl)).addTo(map);
     }
   }
 }

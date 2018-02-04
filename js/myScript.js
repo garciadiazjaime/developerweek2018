@@ -5,25 +5,30 @@
     var redoElement = document.getElementById('redo');
     var clearElement = document.getElementById('clear');
     var setPinElement = document.getElementById('setPin');
+
+    var selectedCategory = "default";
+    var categoriesMap = {
+      "M": "images/sampleM.png",
+      "G": "images/sampleG.png",
+      "L": "images/sampleL.png",
+      "P": "images/sampleP.png",
+      "S": "images/sampleS.png",
+      "default": "images/sampleW.png"
+    }
+
     editorElement.addEventListener('changed', function(evt) {
         clearElement.disabled = !evt.detail.canClear;
         undoElement.disabled = !evt.detail.canUndo;
         redoElement.disabled = !evt.detail.canRedo;
     });
     editorElement.addEventListener('exported', function(evt) {
-        var exports = evt.detail.exports;
-        if (exports && exports['text/plain']) {
-            console.log(exports['text/plain']);
-            if(exports['text/plain'] == "M") {
-              resultElement.innerHTML = "<img src='https://lh3.googleusercontent.com/gN6iBKP1b2GTXZZoCxhyXiYIAh8QJ_8xzlhEK6csyDadA4GdkEdIEy9Bc8s5jozt1g=w300' width='50' height='50'>";
-            }
-            else {
-              resultElement.innerHTML = '<span>' + exports['text/plain'] + '</span>';
-            }
-
-        } else {
-            resultElement.innerHTML = '';
-        }
+      if (evt.detail.exports) {
+        const key = evt.detail.exports['text/plain']
+        selectedCategory = categoriesMap[key] ? key : categoriesMap.default;
+        resultElement.innerHTML = "<img src='" + categoriesMap[selectedCategory] + "'>";
+      } else {
+          resultElement.innerHTML = '';
+      }
     });
     undoElement.addEventListener('click', function() {
         editorElement.editor.undo();
@@ -35,8 +40,22 @@
         editorElement.editor.clear();
     });
     setPinElement.addEventListener('click', function() {
-        pins.setIcon(1);
+        setPin(categoriesMap[selectedCategory]);
     });
+
+    function setPin(icon) {
+      hidePinSelector();
+      pins.setIcon(icon);
+    }
+
+    function hidePinSelector() {
+      document.getElementById('pin-selector').classList.add('hidden');
+    }
+
+    function showPinSelector() {
+      document.getElementById('pin-selector').classList.remove('hidden');
+    }
+
     /**
      * Attach an editor to the document
      * @param {Element} The DOM element to attach the ink paper
