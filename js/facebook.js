@@ -1,6 +1,7 @@
 var btnFb = document.getElementById('btn-facebook');
 
 btnFb.addEventListener('click', function () {
-  console.log('url: ' + pins.getUrl())
+  const fbUrl = 'https://www.facebook.com/sharer/sharer.php?u='
+  window.open(`${fbUrl}${pins.getUrl()}`, '_blank');
 });
 

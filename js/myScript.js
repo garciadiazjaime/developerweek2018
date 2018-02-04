@@ -12,7 +12,7 @@ var categoriesMap = {
   "L": "images/sampleL.png",
   "P": "images/sampleP.png",
   "S": "images/sampleS.png",
-  "default": "images/sampleW.png"
+  "DEFAULT": "images/sampleW.png"
 }
 
 editorElement.addEventListener('changed', function (evt) {
@@ -23,8 +23,8 @@ editorElement.addEventListener('changed', function (evt) {
 editorElement.addEventListener('exported', function (evt) {
   if (evt.detail.exports && evt.detail.exports['text/plain']) {
     const key = evt.detail.exports['text/plain']
-    selectedCategory = categoriesMap[key] ? key : categoriesMap.default;
-    resultElement.innerHTML = "<img src='" + categoriesMap[selectedCategory] + "'>";
+    selectedCategory = categoriesMap[key] ? key : 'default';
+    resultElement.innerHTML = "<img src='" + categoriesMap[selectedCategory.toUpperCase()] + "'>";
   } else {
     resultElement.innerHTML = '';
   }

@@ -17,7 +17,6 @@ tomtom.controlPanel({
   .addTo(map)
 
 function markerOptions(iconUrl) {
-  console.log(iconUrl);
   return {
     icon: tomtom.L.icon({
       iconUrl,
@@ -56,7 +55,7 @@ function UserPins() {
   }
 
   this.getUrl = function() {
-   return `${window.location.href}?points=${encodeURIComponent(JSON.stringify(this.points))}`
+   return `${window.location.href}?points=${JSON.stringify(this.points)}`
   }
 
   this.loadMap = function() {
