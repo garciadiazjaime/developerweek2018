@@ -23,7 +23,7 @@ editorElement.addEventListener('changed', function (evt) {
 editorElement.addEventListener('exported', function (evt) {
   if (evt.detail.exports && evt.detail.exports['text/plain']) {
     const key = evt.detail.exports['text/plain']
-    selectedCategory = categoriesMap[key] ? key : 'default';
+    selectedCategory = categoriesMap[key] ? key : 'DEFAULT';
     resultElement.innerHTML = "<img src='" + categoriesMap[selectedCategory.toUpperCase()] + "'>";
   } else {
     resultElement.innerHTML = '';
