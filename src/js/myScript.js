@@ -5,7 +5,7 @@ var redoElement = document.getElementById('redo');
 var clearElement = document.getElementById('clear');
 var setPinElement = document.getElementById('setPin');
 
-var selectedCategory = "default";
+var selectedCategory = '';
 var categoriesMap = {
   "M": "images/sampleM.png",
   "G": "images/sampleG.png",
@@ -44,11 +44,14 @@ setPinElement.addEventListener('click', function () {
 
 function clearMyScript() {
   editorElement.editor.clear();
+  selectedCategory = ''
 }
 
 function setPin(icon) {
   hidePinSelector();
-  pins.setIcon(icon);
+  if (icon) {
+    pins.setIcon(icon);
+  }
   clearMyScript();
 }
 

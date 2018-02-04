@@ -64,8 +64,10 @@ function UserPins() {
       const points = JSON.parse(pointsParam)
       if (points && points.length) {
         points.forEach(point => {
-          this.add(point.latlng, point.uuid)
-          this.setIcon(point.iconUrl)
+          if (point.iconUrl) {
+            this.add(point.latlng, point.uuid)
+            this.setIcon(point.iconUrl)
+          }
         })
       }
     }
