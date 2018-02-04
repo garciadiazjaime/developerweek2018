@@ -27,8 +27,6 @@ function markerOptions(iconUrl) {
   }
 };
 
-// tomtom.L.marker([43.26456, -71.5702], markerOptions).addTo(map);
-
 window.pins = new UserPins();
 
 map.on('click', e => {
@@ -40,22 +38,41 @@ function UserPins() {
   this.points = []
   this.current = null
 
-  this.add = function(latlng) {
+  this.add = function(latlng, uuid) {
     const newPin = {
       latlng,
-      uuid: guid()
+      uuid: !uuid ? guid() : uuid
     }
     this.points.push(newPin)
     this.current = newPin.uuid
   }
 
   this.setIcon = function(iconUrl) {
-    console.log(iconUrl);
     const point = this.points.filter(point => point.uuid == this.current)
     if (point.length) {
+      point[0].iconUrl = iconUrl
       tomtom.L.marker(point[0].latlng, markerOptions(iconUrl)).addTo(map);
     }
   }
+
+  this.getUrl = function() {
+   return `${window.location.href}?points=${encodeURIComponent(JSON.stringify(this.points))}`
+  }
+
+  this.loadMap = function() {
+    var pointsParam = getJsonFromUrl().points
+    if (pointsParam) {
+      const points = JSON.parse(pointsParam)
+      if (points && points.length) {
+        points.forEach(point => {
+          this.add(point.latlng, point.uuid)
+          this.setIcon(point.iconUrl)
+        })
+      }
+    }
+  }
+
+  this.loadMap()
 }
 
 function guid() {
@@ -66,4 +83,14 @@ function guid() {
   }
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
     s4() + '-' + s4() + s4() + s4();
+}
+
+function getJsonFromUrl() {
+  var query = location.search.substr(1);
+  var result = {};
+  query.split("&").forEach(function(part) {
+    var item = part.split("=");
+    result[item[0]] = decodeURIComponent(item[1]);
+  });
+  return result;
 }
