@@ -5,7 +5,7 @@ const map = tomtom.map('map', {
   zoom: 12,
   key: 'V6iEh5xVqo3mBAHEe3reZYZG10yAhbBt',
   source: 'vector',
-  basePath: '/tomtomSDK',
+  basePath: 'http://api.tomtom.com/maps-sdk-js/4.15.0/examples/sdk/',
 })
 
 tomtom.controlPanel({
