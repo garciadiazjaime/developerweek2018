@@ -15,6 +15,8 @@
             console.log(exports['text/plain']);
             if(exports['text/plain'] == "M") {
               resultElement.innerHTML = "<img src='https://lh3.googleusercontent.com/gN6iBKP1b2GTXZZoCxhyXiYIAh8QJ_8xzlhEK6csyDadA4GdkEdIEy9Bc8s5jozt1g=w300' width='50' height='50'>";
+              pins.setIcon(1)
+
             }
             else {
               resultElement.innerHTML = '<span>' + exports['text/plain'] + '</span>';
