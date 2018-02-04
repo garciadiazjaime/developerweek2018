@@ -1,8 +1,9 @@
 const center = [37.7599904,-122.4536476]
+const zoom = 12
 
 const map = tomtom.map('map', {
   center,
-  zoom: 12,
+  zoom,
   key: 'V6iEh5xVqo3mBAHEe3reZYZG10yAhbBt',
   source: 'vector',
   basePath: 'http://api.tomtom.com/maps-sdk-js/4.15.0/examples/sdk/',
@@ -63,10 +64,14 @@ function UserPins() {
     if (pointsParam) {
       const points = JSON.parse(pointsParam)
       if (points && points.length) {
-        points.forEach(point => {
+        points.forEach((point, i) => {
           if (point.iconUrl) {
             this.add(point.latlng, point.uuid)
             this.setIcon(point.iconUrl)
+          }
+          if (i === 0) {
+            const customCenter = [point.latlng.lat, point.latlng.lng]
+            map.setView(customCenter, zoom);
           }
         })
       }
