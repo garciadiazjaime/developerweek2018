@@ -131,7 +131,7 @@ button {
 }
 
 #setPin:hover, #setPin:focus {
-
+  background-color: #184dc3;
 }
 
 #setPin:before {
@@ -140,7 +140,7 @@ button {
 }
 
 #result {
-    background: white;
+    background: rgba(255, 255, 255, .8);
     border-radius: 10px;
     height: 100px;
     display: flex;
@@ -160,20 +160,17 @@ button {
     border-radius: 10px;
 }
 
-#editor #BACKGROUND-viewTransform {
-  display: none;
-}
-
 #pin-selector {
   border-radius: 20px;
   background: #862091;
-  padding: 20px 10px;
-  width: 250px;
+  padding: 20px;
+  width: 270px;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
+  box-shadow: 0 10px 20px black;
 }
 
 #pin-selector.hidden {

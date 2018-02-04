@@ -7,12 +7,16 @@ var setPinElement = document.getElementById('setPin');
 
 var selectedCategory = "default";
 var categoriesMap = {
-  "M": "images/sampleM.png",
-  "G": "images/sampleG.png",
-  "L": "images/sampleL.png",
-  "P": "images/sampleP.png",
-  "S": "images/sampleS.png",
-  "DEFAULT": "images/sampleW.png"
+  "A": "images/Aid.svg",
+  "B": "images/Bathrooms.svg",
+  "C": "images/Camping.svg",
+  "F": "images/Fancy.svg",
+  "M": "images/Munchies.svg",
+  "P": "images/Picante.svg",
+  "R": "images/Restaurants.svg",
+  "S": "images/Stage.svg",
+  "L": "images/Toprope.svg",
+  "DEFAULT": "images/default.svg"
 }
 
 editorElement.addEventListener('changed', function (evt) {
@@ -23,6 +27,7 @@ editorElement.addEventListener('changed', function (evt) {
 editorElement.addEventListener('exported', function (evt) {
   if (evt.detail.exports && evt.detail.exports['text/plain']) {
     const key = evt.detail.exports['text/plain']
+    console.log(key);
     selectedCategory = categoriesMap[key] ? key : 'DEFAULT';
     resultElement.innerHTML = "<img src='" + categoriesMap[selectedCategory.toUpperCase()] + "'>";
   } else {
