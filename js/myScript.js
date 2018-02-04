@@ -36,15 +36,20 @@ redoElement.addEventListener('click', function () {
   editorElement.editor.redo();
 });
 clearElement.addEventListener('click', function () {
-  editorElement.editor.clear();
+  clearMyScript();
 });
 setPinElement.addEventListener('click', function () {
   setPin(categoriesMap[selectedCategory]);
 });
 
+function clearMyScript() {
+  editorElement.editor.clear();
+}
+
 function setPin(icon) {
   hidePinSelector();
   pins.setIcon(icon);
+  clearMyScript();
 }
 
 function hidePinSelector() {
