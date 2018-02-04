@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class='use-all-space'>
 
 <head>
     <meta charset="UTF-8">
@@ -161,9 +161,16 @@
 
     <script type="text/javascript" src="bower_components/pepjs/dist/pep.min.js"></script>
     <script type="text/javascript" src="bower_components/myscript/dist/myscript.min.js"></script>
+
+
+    <!-- tomtom scripts -->
+    <link rel='stylesheet' type='text/css' href='http://api.tomtom.com/maps-sdk-js/4.15.0/examples/sdk/map.css' />
+    <link rel='stylesheet' type='text/css' href='http://api.tomtom.com/maps-sdk-js/4.15.0/examples/elements.css'>
+    <link rel="stylesheet" href="./css/map.css">
+    <script src='http://api.tomtom.com/maps-sdk-js/4.15.0/examples/sdk/tomtom.min.js'></script>
 </head>
 
-<body touch-action="none">
+<body touch-action="none" class='use-all-space'>
     <div id="result"></div>
     <div>
         <nav>
@@ -236,6 +243,10 @@
             editorElement.editor.resize();
         });
     </script>
+
+    <!-- tomtom components -->
+    <div id='map' class='use-all-space'></div>
+    <script src="./js/map.js"></script>
 </body>
 
 </html>
