@@ -1,13 +1,9 @@
 {
-  "name": "developerweek2018",
+  "name": "my-script",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:garciadiazjaime/developerweek2018.git",
-  "author": "jaime <garciadiazjaime@gmail.com>",
+  "repository": {},
   "license": "MIT",
-  "dependencies": {
-    "http-server": "^0.11.1"
-  },
   "scripts": {
     "start": "http-server ."
   }
