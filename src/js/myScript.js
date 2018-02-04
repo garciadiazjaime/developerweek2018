@@ -26,10 +26,10 @@ editorElement.addEventListener('changed', function (evt) {
 });
 editorElement.addEventListener('exported', function (evt) {
   if (evt.detail.exports && evt.detail.exports['text/plain']) {
-    const key = evt.detail.exports['text/plain']
+    const key = evt.detail.exports['text/plain'].toUpperCase();
     console.log(key);
     selectedCategory = categoriesMap[key] ? key : 'DEFAULT';
-    resultElement.innerHTML = "<img src='" + categoriesMap[selectedCategory.toUpperCase()] + "'>";
+    resultElement.innerHTML = "<img src='" + categoriesMap[selectedCategory] + "'>";
   } else {
     resultElement.innerHTML = '';
   }
