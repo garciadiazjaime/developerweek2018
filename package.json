@@ -6,6 +6,6 @@
   "license": "MIT",
   "scripts": {
     "start": "http-server ./src",
-    "deploy": "cd ./src && gsutil -m cp -r . gs://mapgic.mintitmedia.com"
+    "deploy": "cd ./src && gsutil -m cp -r . gs://mapgic.mintitmedia.com && gsutil iam ch allUsers:objectViewer gs://mapgic.mintitmedia.com"
   }
 }
