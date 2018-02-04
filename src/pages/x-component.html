@@ -1,0 +1,20 @@
+<template id="template">
+  <style>
+  </style>
+  <div id="container">
+    <content select="h1"></content>
+  </div>
+</template>
+<script>
+  const template =  document.currentScript.ownerDocument.querySelector('#template')
+  const XComponentProto = Object.create(HTMLElement.prototype)
+
+  XComponentProto.createdCallback = function() {
+    const root = this.createShadowRoot()
+    root.appendChild(document.importNode(template.content, true))
+  }
+
+  const XComponent = document.registerElement('x-component', {
+    prototype: XComponentProto
+  })
+</script>
