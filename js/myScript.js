@@ -4,6 +4,7 @@
     var undoElement = document.getElementById('undo');
     var redoElement = document.getElementById('redo');
     var clearElement = document.getElementById('clear');
+    var setPinElement = document.getElementById('setPin');
     editorElement.addEventListener('changed', function(evt) {
         clearElement.disabled = !evt.detail.canClear;
         undoElement.disabled = !evt.detail.canUndo;
@@ -15,8 +16,6 @@
             console.log(exports['text/plain']);
             if(exports['text/plain'] == "M") {
               resultElement.innerHTML = "<img src='https://lh3.googleusercontent.com/gN6iBKP1b2GTXZZoCxhyXiYIAh8QJ_8xzlhEK6csyDadA4GdkEdIEy9Bc8s5jozt1g=w300' width='50' height='50'>";
-              pins.setIcon(1)
-
             }
             else {
               resultElement.innerHTML = '<span>' + exports['text/plain'] + '</span>';
@@ -34,6 +33,9 @@
     });
     clearElement.addEventListener('click', function() {
         editorElement.editor.clear();
+    });
+    setPinElement.addEventListener('click', function() {
+        pins.setIcon(1);
     });
     /**
      * Attach an editor to the document
